@@ -1,16 +1,16 @@
 import mysql.connector
 
 #crie sua conexao com o BD (precisa do host, user, password e o database )
-conexao = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='',
-    database='bdcrud',
-)
-
-#crie o seu "cursor" (ele é responsável por executar os comandos)
+conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+#crie sua conexao com o "cursor" (ele é responsável por executar os comandos)
 cursor = conexao.cursor()
 
+#CREATE
+nome_produto = "bola"
+valor = 4
+comando = f'INSERT INTO vendas (nome_produto, valor) VALUES ({nome_produto}, {valor})'
+print(nome_produto, valor)
+cursor.execute(comando)
 
 
 
