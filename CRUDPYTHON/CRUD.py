@@ -6,11 +6,11 @@ conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='roo
 cursor = conexao.cursor()
 
 #CREATE
-nome_produto = "bola"
-valor = 4
-comando = f'INSERT INTO vendas (nome_produto, valor) VALUES ({nome_produto}, {valor})'
-print(nome_produto, valor)
+nome_produto ="bola"
+valor = 15
+comando = f'INSERT INTO vendas (nome_produto, valor) VALUES ("{nome_produto}"   , {valor})'
 cursor.execute(comando)
+conexao.commit()
 
 
 
