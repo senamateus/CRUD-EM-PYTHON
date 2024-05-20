@@ -1,0 +1,9 @@
+CREATE DATABASE bdcrud;
+use bdcrud;
+
+CREATE TABLE vendas(
+   idVendas int(11) NOT NULL AUTO_INCREMENT,
+   nome_produto varchar(45) DEFAULT NULL,
+   valor int(11) DEFAULT NULL,
+   PRIMARY KEY (idVendas)
+ )
