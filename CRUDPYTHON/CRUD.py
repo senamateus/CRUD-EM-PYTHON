@@ -25,13 +25,11 @@ comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produt
 cursor.execute(comando)
 conexao.commit()
 
-
-
-
-
-
-
-
+#DELETE
+nome_produto = "bola"
+comando = f'DELETE FROM vendas WHERE nome_produto = "{nome_produto}"'
+cursor.execute(comando)
+conexao.commit()
 
 
 
