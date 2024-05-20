@@ -12,8 +12,11 @@ comando = f'INSERT INTO vendas (nome_produto, valor) VALUES ("{nome_produto}", {
 cursor.execute(comando)
 conexao.commit()
 
-
-
+#READ
+comando = f'select * from vendas'
+cursor.execute(comando)
+resultado = cursor.fetchall()
+print(resultado)
 
 
 
