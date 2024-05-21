@@ -1,4 +1,8 @@
 import mysql.connector
+from flask import Flask, render_template, request, redirect;
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mateusSena'
 
 #crie sua conexao com o BD (precisa do host, user, password e o database )
 conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
@@ -38,4 +42,8 @@ conexao.commit()
 
 #encerrando a conexão
 cursor.close()
-conexao.close(  )
+conexao.close()
+
+
+if __name__ in '__main__':
+    app.run(debug=True)
