@@ -9,6 +9,13 @@ conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='roo
 #crie sua conexao com o "cursor" (ele é responsável por executar os comandos)
 cursor = conexao.cursor()
 
+
+
+@app.route('/')
+def index():
+    render_template('/index.html')
+
+
 #CREATE
 nome_produto ="refrigerante"
 valor = 9
