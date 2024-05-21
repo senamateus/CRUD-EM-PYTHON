@@ -15,6 +15,10 @@ cursor = conexao.cursor()
 def index():
    return render_template('index.html')
 
+@app.route('/paginacreate') 
+def paginacreate():
+    return render_template('create.html')
+
 @app.route('/create', methods=['POST'])
 def create():
     #CREATE
