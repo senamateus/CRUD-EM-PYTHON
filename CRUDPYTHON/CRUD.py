@@ -15,13 +15,15 @@ cursor = conexao.cursor()
 def index():
     render_template('/index.html')
 
-
-#CREATE
-nome_produto ="refrigerante"
-valor = 9
-comando = f'INSERT INTO vendas (nome_produto, valor) VALUES ("{nome_produto}", {valor})'
-cursor.execute(comando)
-conexao.commit()
+@app.route('/create', methods=['POST'])
+def create():
+    #CREATE
+    nome_produto = request.form.get('nomeProduto')
+    valor = request.form.get('precoProduto')
+    comando = f'INSERT INTO vendas (nome_produto, valor) VALUES ("{nome_produto}", {valor})'
+    cursor.execute(comando)
+    conexao.commit()
+    return redirect('/create')
 
 #READ
 comando = f'select * from vendas'
