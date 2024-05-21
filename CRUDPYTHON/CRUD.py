@@ -13,7 +13,7 @@ cursor = conexao.cursor()
 
 @app.route('/')
 def index():
-    render_template('/index.html')
+   return render_template('index.html')
 
 @app.route('/create', methods=['POST'])
 def create():
@@ -23,26 +23,26 @@ def create():
     comando = f'INSERT INTO vendas (nome_produto, valor) VALUES ("{nome_produto}", {valor})'
     cursor.execute(comando)
     conexao.commit()
-    return redirect('/create')
+    return render_template('create.html')
 
 #READ
-comando = f'select * from vendas'
-cursor.execute(comando)
-resultado = cursor.fetchall()
-print(resultado)
+#comando = f'select * from vendas'
+#cursor.execute(comando)
+#resultado = cursor.fetchall()
+#print(resultado)
 
 #UPDATE
-nome_produto = "chocolate"
-valor = 8
-comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
-cursor.execute(comando)
-conexao.commit()
+#nome_produto = "chocolate"
+#valor = 8
+#comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
+#cursor.execute(comando)
+#conexao.commit()
 
 #DELETE
-nome_produto = "bola"
-comando = f'DELETE FROM vendas WHERE nome_produto = "{nome_produto}"'
-cursor.execute(comando)
-conexao.commit()
+#nome_produto = "bola"
+#comando = f'DELETE FROM vendas WHERE nome_produto = "{nome_produto}"'
+#cursor.execute(comando)
+#conexao.commit()
 
 
 
