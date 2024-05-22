@@ -44,7 +44,6 @@ def paginaread():
 
     
 #UPDATE
-
 #nome_produto = "chocolate"
 #valor = 8
 #comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
