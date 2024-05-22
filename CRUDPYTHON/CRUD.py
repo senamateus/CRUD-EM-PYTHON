@@ -44,7 +44,9 @@ def paginaread():
 
     
 #UPDATE
-
+@app.route('/paginaupdate') 
+def paginaupdate():
+    return render_template('update.html')
 #nome_produto = "chocolate"
 #valor = 8
 #comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
