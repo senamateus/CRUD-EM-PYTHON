@@ -27,7 +27,7 @@ def create():
     conexao.commit()
     cursor.close()
     conexao.close()
-    return render_template('create.html')
+    return redirect('/paginaread')
 
 #READ
 @app.route('/paginaread')
@@ -37,7 +37,6 @@ def paginaread():
     comando = f'select * from vendas'
     cursor.execute(comando)
     resultado = cursor.fetchall()
-    print(resultado)
     cursor.close()
     conexao.close()
     return render_template('read.html', produtos=resultado)
@@ -46,7 +45,35 @@ def paginaread():
 #UPDATE
 @app.route('/paginaupdate') 
 def paginaupdate():
-    return render_template('update.html')
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = f'select * from vendas'
+    cursor.execute(comando)
+    resultado = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return render_template('update.html', produtos=resultado)
+
+@app.route('/paginaeditarproduto',)
+def editarproduto():
+    return render_template('editarproduto.html')
+
+@app.route('/editando', methods=['POST'])
+def editando():
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    nome_produto = request.form.get('nomeProduto')
+    valor = request.form.get('precoProduto')
+    comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
+    cursor.execute(comando)
+    conexao.commit()
+    return render_template('editarproduto.html')
+
+
+
+
+
+
 #nome_produto = "chocolate"
 #valor = 8
 #comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
