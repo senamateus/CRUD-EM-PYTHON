@@ -54,20 +54,37 @@ def paginaupdate():
     conexao.close()
     return render_template('update.html', produtos=resultado)
 
-@app.route('/paginaeditarproduto',)
-def editarproduto():
-    return render_template('editarproduto.html')
+@app.route('/paginaeditarproduto/<int:idVendas>', methods=['GET'])
+def editarproduto(idVendas):
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = 'SELECT nome_produto, valor FROM vendas WHERE idVendas = %s'
+    cursor.execute(comando, (idVendas,))
+    produto = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    if produto:
+        nome, valor = produto
+    else:
+        nome, valor = '', 0
+    return render_template('editarproduto.html', idVendas=idVendas, nome=nome, valor=valor)
+
 
 @app.route('/editando', methods=['POST'])
 def editando():
+    idVendas = request.form['id']
+    nome = request.form['nomeProduto']
+    valor = request.form['precoProduto']
+    
     conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
     cursor = conexao.cursor()
-    nome_produto = request.form.get('nomeProduto')
-    valor = request.form.get('precoProduto')
-    comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
-    cursor.execute(comando)
+    comando = 'UPDATE vendas SET nome_produto = %s, valor = %s WHERE idVendas = %s'
+    cursor.execute(comando, (nome, valor, idVendas))
     conexao.commit()
-    return render_template('editarproduto.html')
+    cursor.close()
+    conexao.close()
+    
+    return redirect('/paginaupdate')
 
 
 
