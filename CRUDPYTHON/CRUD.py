@@ -109,18 +109,7 @@ def excluirproduto(idVendas):
     conexao.close()
     
     return redirect('/paginaupdate')
-#DELETE
-#nome_produto = "bola"
-#comando = f'DELETE FROM vendas WHERE nome_produto = "{nome_produto}"'
-#cursor.execute(comando)
-#conexao.commit()
 
-
-
-
-
-
-#encerrando a conexão
 
 
 
