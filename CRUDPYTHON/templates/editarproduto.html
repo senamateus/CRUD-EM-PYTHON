@@ -16,7 +16,7 @@
               <a class="nav-link active" aria-current="page" href="/paginacreate">CREATE</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">READ</a>
+                <a class="nav-link active" aria-current="page" href="/paginaread">READ</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/paginaupdate">UPDATE</a>
@@ -25,26 +25,22 @@
                 <a class="nav-link active" aria-current="page" href="#">DELETE</a>
               </li>
         </ul>
-        <h1>READ</h1>
+        <h1>UPDATE</h1>
         
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">id</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Preço</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for venda in produtos %}    
-              <tr>
-                <th scope="row">{{venda[0]}}</th>
-                <td>{{venda[1]}}</td>
-                <td>R${{venda[2]}}</td>
-              </tr>
-            {% endfor %}  
-            </tbody>
-          </table>
+        <form action="/editando" method="post">
+          <input type="hidden" name="id" value="{{ idVendas }}">
+          <div class="mb-3">
+              <label for="nomeProduto" class="form-label">Nome do Produto:</label>
+              <input type="text" name="nomeProduto" class="form-control" id="nomeProduto" value="{{ nome }}">
+          </div>
+          <div class="mb-3">
+              <label for="precoProduto" class="form-label">Preço:</label>
+              <input type="number" name="precoProduto" class="form-control" id="precoProduto" value="{{ valor }}">
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button> 
+      </form>
+        
+
 
 
 

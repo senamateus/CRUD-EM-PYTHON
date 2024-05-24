@@ -27,7 +27,7 @@ def create():
     conexao.commit()
     cursor.close()
     conexao.close()
-    return render_template('create.html')
+    return redirect('/paginaread')
 
 #READ
 @app.route('/paginaread')
@@ -37,7 +37,6 @@ def paginaread():
     comando = f'select * from vendas'
     cursor.execute(comando)
     resultado = cursor.fetchall()
-    print(resultado)
     cursor.close()
     conexao.close()
     return render_template('read.html', produtos=resultado)
@@ -46,25 +45,71 @@ def paginaread():
 #UPDATE
 @app.route('/paginaupdate') 
 def paginaupdate():
-    return render_template('update.html')
-#nome_produto = "chocolate"
-#valor = 8
-#comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
-#cursor.execute(comando)
-#conexao.commit()
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = f'select * from vendas'
+    cursor.execute(comando)
+    resultado = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return render_template('update.html', produtos=resultado)
 
-#DELETE
-#nome_produto = "bola"
-#comando = f'DELETE FROM vendas WHERE nome_produto = "{nome_produto}"'
-#cursor.execute(comando)
-#conexao.commit()
+@app.route('/paginaeditarproduto/<int:idVendas>', methods=['GET'])
+def editarproduto(idVendas):
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = 'SELECT nome_produto, valor FROM vendas WHERE idVendas = %s'
+    cursor.execute(comando, (idVendas,))
+    produto = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    if produto:
+        nome, valor = produto
+    else:
+        nome, valor = '', 0
+    return render_template('editarproduto.html', idVendas=idVendas, nome=nome, valor=valor)
 
 
+@app.route('/editando', methods=['POST'])
+def editando():
+    idVendas = request.form['id']
+    nome = request.form['nomeProduto']
+    valor = request.form['precoProduto']
+    
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = 'UPDATE vendas SET nome_produto = %s, valor = %s WHERE idVendas = %s'
+    cursor.execute(comando, (nome, valor, idVendas))
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+    
+    return redirect('/paginaupdate')
 
 
+@app.route('/paginaexcluir') 
+def paginaexcluir():
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = f'select * from vendas'
+    cursor.execute(comando)
+    resultado = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return render_template('delete.html', produtos=resultado)
 
+@app.route('/excluirproduto/<int:idVendas>', methods=['GET'])
+def excluirproduto(idVendas):
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = 'DELETE FROM vendas WHERE idVendas = %s'
+    cursor.execute(comando, (idVendas,))
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+    
+    return redirect('/paginaupdate')
 
-#encerrando a conexão
 
 
 

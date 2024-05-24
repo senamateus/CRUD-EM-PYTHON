@@ -16,7 +16,7 @@
               <a class="nav-link active" aria-current="page" href="/paginacreate">CREATE</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/paginaread">READ</a>
+                <a class="nav-link active" aria-current="page" href="#">READ</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">UPDATE</a>
@@ -25,21 +25,28 @@
                 <a class="nav-link active" aria-current="page" href="#">DELETE</a>
               </li>
         </ul>
-        <h1>CREATE</h1>
-        <form action="/create" method="post">
-            <div class="mb-3">
-              <label for="nomeProduto" class="form-label">Nome do Produto:</label>
-              <input type="text" name="nomeProduto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-
-            <div class="mb-3">
-              <label for="precoProduto" class="form-label">Preço:</label>
-              <input type="number" name="precoProduto" class="form-control" id="exampleInputPassword1">
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Enviar</button>
-          </form>
-
+        <h1>READ</h1>
+        
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Editar</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for venda in produtos %}    
+              <tr>
+                <th scope="row">{{venda[0]}}</th>
+                <td>{{venda[1]}}</td>
+                <td>R${{venda[2]}}</td>
+                <td><a href="/paginaeditarproduto/{{venda[0]}}">Editar</a></td>
+              </tr>
+            {% endfor %}  
+            </tbody>
+          </table>
 
 
 
