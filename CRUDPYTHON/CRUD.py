@@ -87,16 +87,28 @@ def editando():
     return redirect('/paginaupdate')
 
 
+@app.route('/paginaexcluir') 
+def paginaexcluir():
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = f'select * from vendas'
+    cursor.execute(comando)
+    resultado = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return render_template('delete.html', produtos=resultado)
 
-
-
-
-#nome_produto = "chocolate"
-#valor = 8
-#comando = f'UPDATE vendas SET valor = {valor} WHERE nome_produto = "{nome_produto}"'
-#cursor.execute(comando)
-#conexao.commit()
-
+@app.route('/excluirproduto/<int:idVendas>', methods=['GET'])
+def excluirproduto(idVendas):
+    conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
+    cursor = conexao.cursor()
+    comando = 'DELETE FROM vendas WHERE idVendas = %s'
+    cursor.execute(comando, (idVendas,))
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+    
+    return redirect('/paginaupdate')
 #DELETE
 #nome_produto = "bola"
 #comando = f'DELETE FROM vendas WHERE nome_produto = "{nome_produto}"'
