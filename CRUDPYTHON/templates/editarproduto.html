@@ -27,18 +27,18 @@
         </ul>
         <h1>UPDATE</h1>
         
-          <form action="/editando" method="post">
-              <div class="mb-3">
-                <label for="nomeProduto" class="form-label">Nome do Produto:</label>
-                <input type="text" name="nomeProduto" class="form-control" id="exampleInputEmail1"  aria-describedby="emailHelp">
-              </div>
-              <div class="mb-3">
-                <label for="precoProduto" class="form-label">Preço:</label>
-                <input type="number" name="precoProduto" class="form-control" id="exampleInputPassword1">
-              </div>
-            
-              <button type="submit" class="btn btn-primary">Enviar</button> 
-          </form>
+        <form action="/editando" method="post">
+          <input type="hidden" name="id" value="{{ idVendas }}">
+          <div class="mb-3">
+              <label for="nomeProduto" class="form-label">Nome do Produto:</label>
+              <input type="text" name="nomeProduto" class="form-control" id="nomeProduto" value="{{ nome }}">
+          </div>
+          <div class="mb-3">
+              <label for="precoProduto" class="form-label">Preço:</label>
+              <input type="number" name="precoProduto" class="form-control" id="precoProduto" value="{{ valor }}">
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button> 
+      </form>
         
 
 
