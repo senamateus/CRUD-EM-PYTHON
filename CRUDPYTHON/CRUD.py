@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, redirect;
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mateusSena'
 
-
 @app.route('/')
 def index():
    return render_template('index.html')
@@ -41,7 +40,6 @@ def paginaread():
     conexao.close()
     return render_template('read.html', produtos=resultado)
 
-    
 #UPDATE
 @app.route('/paginaupdate') 
 def paginaupdate():
@@ -69,7 +67,6 @@ def editarproduto(idVendas):
         nome, valor = '', 0
     return render_template('editarproduto.html', idVendas=idVendas, nome=nome, valor=valor)
 
-
 @app.route('/editando', methods=['POST'])
 def editando():
     idVendas = request.form['id']
@@ -86,7 +83,7 @@ def editando():
     
     return redirect('/paginaupdate')
 
-
+#EXCLUIR
 @app.route('/paginaexcluir') 
 def paginaexcluir():
     conexao = mysql.connector.connect(host='localhost', database='bdcrud', user='root', password='')
@@ -108,10 +105,7 @@ def excluirproduto(idVendas):
     cursor.close()
     conexao.close()
     
-    return redirect('/paginaupdate')
-
-
-
+    return redirect('/paginaexcluir')
 
 if __name__ in '__main__':
     app.run(debug=True)
